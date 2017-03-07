@@ -124,6 +124,7 @@ public class Reflection {
      * @param parameterTypes - The parameter types (classes).
      * @return The constructor from a class.
      */
+    @SuppressWarnings({"deprecation", "unchecked"})
     public static ConstructorInvoker getConstructor(Class clazz, Class... parameterTypes) {
         if (clazz != null) {
             try {
@@ -144,9 +145,9 @@ public class Reflection {
                     } else if (clazz.getSuperclass() != null && clazz.getSuperclass() != Object.class) {
                         return getConstructor(clazz.getSuperclass(), parameterTypes);
                     }
-                } catch (Exception ignored) {
+                } catch (NoSuchMethodException | SecurityException ignored) {
                 }
-            } catch (Exception ignore) {
+            } catch (SecurityException ignore) {
             }
         }
         return null;
